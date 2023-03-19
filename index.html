@@ -5,19 +5,37 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
-   <!--
-      <script src="./index.js" async></script>
-   -->
+   <link rel="stylesheet" href="index.css">
+   <script src="./index.js" async></script>
 </head>
 <body>
-   <h1>Hello world</h1>
-   <h2>Hi</h2>
-   <div id="app"></div>
-   <div id="rural"></div>
+   <div class="weather-input">
+      <h1>Weather Data API</h1>
+      <label for="town">
+         Town
+         <input type="text" name="town" id="town" min="5" max="50">
+      </label>
+      <label for="state">
+         Province
+         <input type="text" name="state" id="state" min="5" max="50">
+      </label>
+      <label for="countryCode">
+         Country code
+         <input type="text" name="countryCode" id="countryCode" min="5" max="50">
+      </label>
+   </div>
+
+   <div class="weather-display">
+      <h2>Weather Data</h2>
+      <p>Minimum Temp:</p>
+      <p>Maximum Temop</p>
+   </div>
+  
+   <!-- <div id="app"></div>
+   <div id="rural"></div> -->
 
    
-	<script src="https://content.codecademy.com/courses/React/react-course-bundle.min.js"></script>
-  <script src="/app.compiled.js"></script>
-   <!---->
+	<!-- <script src="https://content.codecademy.com/courses/React/react-course-bundle.min.js"></script>
+  <script src="/app.compiled.js"></script> -->
 </body>
 </html>
