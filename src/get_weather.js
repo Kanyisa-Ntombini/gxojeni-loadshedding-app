@@ -1,9 +1,9 @@
 const axios = require('axios');
-const { kelvinToCelcius } = require('./helper_functions');
+const { kelvinToCelcius } = require('./kelvin_to_celsius.js');
 require('dotenv').config();
 const { API_KEY } = process.env;
 
-async function getWeatherData(town, state, countryCode, limit) {
+const getWeatherData = async (town, state, countryCode, limit) => {
   let lat = null;
   let lon = null;
   let townCoordinates = null;
@@ -11,7 +11,7 @@ async function getWeatherData(town, state, countryCode, limit) {
 
   try {
     townCoordinates = await axios.get(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${town}&limit=5&appid=${API_KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${town}&limit=${limit}&appid=${API_KEY}`
     );
   } catch (error) {
     console.log(error);
@@ -49,21 +49,7 @@ async function getWeatherData(town, state, countryCode, limit) {
   const windDirection = weatherResponse.data.list[0].wind.deg;
   const visibility = weatherResponse.data.list[0].visibility;
   const probabilityRain = weatherResponse.data.list[0].pop;
-  //   const rainVolLast3Hours = kelvinToCelcius(weatherResponse.data.list[0].rain.3h);
-
-  //   console.log(weatherResponse.data);
-  //   console.log(`mainTemp = ${mainTemp}`);
-  //   console.log(`feelsLikeTemp = ${feelsLikeTemp}`);
-  //   console.log(`minTemp = ${minTemp}`);
-  //   console.log(`maxTemp = ${maxTemp}`);
-  //   console.log(`pressure = ${pressure}`);
-  //   console.log(`humidity = ${humidity}`);
-  // console.log(`clouds = ${clouds}`);
-  //   console.log(`windspeed = ${windSpeed}`);
-  //   console.log(`wind direction = ${windDirection}`);
-  //   console.log(`visibility = ${visibility}`);
-  //   console.log(`probability rain = ${probabilityRain}`);
-
+  
   return {
     mainTemp,
     feelsLikeTemp,
@@ -79,4 +65,4 @@ async function getWeatherData(town, state, countryCode, limit) {
   };
 }
 
-getWeatherData('midrand', 'gauteng', 'za', 5);
+module.exports = {getWeatherData}
