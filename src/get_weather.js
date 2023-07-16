@@ -65,4 +65,6 @@ const getWeatherData = async (town, state, countryCode, limit) => {
   };
 }
 
+getWeatherData('cofimvaba', 'eastern cape', 'za', 5).then(res => console.log(res));
+
 module.exports = {getWeatherData}
