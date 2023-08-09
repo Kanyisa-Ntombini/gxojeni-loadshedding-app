@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "start": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "webpack-cli": "^5.0.2"
   },
   "dependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "twilio": "^4.14.0"
   }
 }
