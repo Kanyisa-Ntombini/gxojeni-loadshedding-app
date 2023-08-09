@@ -1,68 +1,58 @@
 const axios = require('axios');
-const { kelvinToCelcius } = require('./kelvin_to_celsius.js');
 require('dotenv').config();
-const { API_KEY } = process.env;
+const { CLIMATE_API_KEY } = process.env;
 
-const getWeatherData = async (town, state, countryCode, limit) => {
-  let lat = null;
-  let lon = null;
+const getWeatherData = async (townInputPar, stateInputPar, countryCodeInputPar, limitInputPar) => {
   let townCoordinates = null;
   let weatherResponse = null;
 
   try {
     townCoordinates = await axios.get(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${town}&limit=${limit}&appid=${API_KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${townInputPar}&limit=${limitInputPar}&appid=${CLIMATE_API_KEY}`
     );
   } catch (error) {
     console.log(error);
   }
+
+  const { name, country, state, lat, lon } = townCoordinates.data[0];
 
   if (
     townCoordinates.status === 200 &&
-    townCoordinates.data[0].name.toLowerCase() == town &&
-    townCoordinates.data[0].country.toLowerCase() === countryCode &&
-    townCoordinates.data[0].state.toLowerCase() === state
+    name.toLowerCase() == townInputPar &&
+    country.toLowerCase() === countryCodeInputPar &&
+    state.toLowerCase() === stateInputPar
   ) {
-    lat = townCoordinates.data[0].lat;
-    lon = townCoordinates.data[0].lon;
+    try {
+      weatherResponse = await axios.get(
+        `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${CLIMATE_API_KEY}&units=metric`
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  try {
-    weatherResponse = await axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    );
-  } catch (error) {
-    console.log(error);
-  }
+  const { main, weather, wind, pop } = weatherResponse.data.list[0];
 
-  const mainTemp = kelvinToCelcius(weatherResponse.data.list[0].main.temp);
-  const feelsLikeTemp = kelvinToCelcius(
-    weatherResponse.data.list[0].main.feels_like
-  );
-  const minTemp = kelvinToCelcius(weatherResponse.data.list[0].main.temp_min);
-  const maxTemp = kelvinToCelcius(weatherResponse.data.list[0].main.temp_max);
-  const pressure = weatherResponse.data.list[0].main.grnd_level;
-  const humidity = weatherResponse.data.list[0].main.humidity;
-
-  const clouds = weatherResponse.data.list[0].clouds.all;
-  const windSpeed = weatherResponse.data.list[0].wind.speed;
-  const windDirection = weatherResponse.data.list[0].wind.deg;
-  const visibility = weatherResponse.data.list[0].visibility;
-  const probabilityRain = weatherResponse.data.list[0].pop;
-  
   return {
-    mainTemp,
-    feelsLikeTemp,
-    minTemp,
-    maxTemp,
-    pressure,
-    humidity,
-    clouds,
-    windSpeed,
-    windDirection,
-    visibility,
-    probabilityRain,
+    minTemp: main.temp_min,
+    maxTemp: main.temp_max,
+    weatherDescription: weather[0].description,
+    probabilityRain: pop,
+    humidity: main.humidity,
+    windSpeed: wind.speed,
+    windDirection: wind.deg,
   };
-}
+};
 
-module.exports = {getWeatherData}
+const something = {
+  minTemp: 10,
+  maxTemp: 25,
+  weatherDescription: 'sunny',
+  probabilityRain: 33,
+  humidity: 12,
+  windSpeed: 77,
+  windDirection: 55,
+};
+
+getWeatherData('midrand', 'gauteng', 'za', 5).then((res) => console.log(res));
+module.exports = { something };

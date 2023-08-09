@@ -23,6 +23,7 @@ This project was inspired by my father. In December 2021 my father planted mieli
 ### Call 5 day / 3 hour forecast data
 - You can search weather forecast for 5 days with data every 3 hours by geographic coordinates.
 - api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+- API Doc: https://openweathermap.org/forecast5
 
 ### Weather triggers
 - Used to create triggers which will fire on an occurrence of the selected weather conditions (temperature, humidity, pressure, etc.)

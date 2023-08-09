@@ -5,8 +5,9 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Weather App</title>
+   <link rel="stylesheet" href="./css/simple-grid/grid/simple-grid.min.css">
    <link rel="stylesheet" href="./css/index.css">
-   <script src="./src/index.js" type="module"></script>
+   <script src="./bundle_js_code/bundled_js_code.js" async></script>
 </head>
 <body>
    <header>
@@ -14,7 +15,7 @@
    </header>
 
    <main>
-      <section>
+      <section class="get-data">
          <label for="townName">
             Town:
             <input type="text" name="townName" id="townName">
@@ -285,10 +286,15 @@
          <button id="submitButton" type="submit">Submit</button>
       </section>
 
-      <section>
+      <section class="show-data">
          <h2>Your Weather</h2>
          <div>Minimum temperature: <span id="minTemp"></span></div>
          <div>Maximum temperature: <span id="maxTemp"></span></div>
+         <div>Weather Description: <span id="weatherDescription"></span></div>
+         <div>Probability Rain: <span id="probabilityRain"></span></div>
+         <div>Humidity: <span id="humidity"></span></div>
+         <div>Wind Speed: <span id="windSpeed"></span></div>
+         <div>Wind Direction: <span id="windDirection"></span></div>
       </section>
    </main>
 
