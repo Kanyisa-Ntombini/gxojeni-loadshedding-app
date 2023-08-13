@@ -2,7 +2,12 @@ const axios = require('axios');
 require('dotenv').config();
 const { CLIMATE_API_KEY } = process.env;
 
-const getWeatherData = async (townInputPar, stateInputPar, countryCodeInputPar, limitInputPar) => {
+const getWeatherData = async (
+  townInputPar,
+  stateInputPar,
+  countryCodeInputPar,
+  limitInputPar
+) => {
   let townCoordinates = null;
   let weatherResponse = null;
 
@@ -32,6 +37,9 @@ const getWeatherData = async (townInputPar, stateInputPar, countryCodeInputPar, 
   }
 
   const { main, weather, wind, pop } = weatherResponse.data.list[0];
+  const { city } = weatherResponse.data;
+  const sunriseDateObject = new Date(city.sunrise);
+  const sunsetDateObject = new Date(city.sunset);
 
   return {
     minTemp: main.temp_min,
@@ -41,6 +49,8 @@ const getWeatherData = async (townInputPar, stateInputPar, countryCodeInputPar, 
     humidity: main.humidity,
     windSpeed: wind.speed,
     windDirection: wind.deg,
+    sunrise: sunriseDateObject.toString(),
+    sunset: sunsetDateObject.toString(),
   };
 };
 
@@ -52,6 +62,8 @@ const something = {
   humidity: 12,
   windSpeed: 77,
   windDirection: 55,
+  sunrise: 'morning',
+  sunset: 'night'
 };
 
 getWeatherData('midrand', 'gauteng', 'za', 5).then((res) => console.log(res));
