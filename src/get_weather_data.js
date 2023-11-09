@@ -66,5 +66,4 @@ const something = {
   sunset: 'night'
 };
 
-getWeatherData('midrand', 'gauteng', 'za', 5).then((res) => console.log(res));
-module.exports = { something };
+module.exports = { something, getWeatherData };

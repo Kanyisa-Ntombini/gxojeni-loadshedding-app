@@ -1,16 +1,40 @@
 require('dotenv').config();
-const {TWILIO_AUTH_TOKEN, TWILIO_ACCOUNT_SID, TWILIO_PASSWORD} = process.env;
+const {
+  TWILIO_AUTH_TOKEN,
+  TWILIO_ACCOUNT_SID,
+  TWILIO_PHONE_NUMBER,
+  MY_PHONE_NUMBER,
+  MESSAGE_SERVICE_SID,
+} = process.env;
 
-const accountSid = TWILIO_ACCOUNT_SID;
-const authToken = TWILIO_AUTH_TOKEN;
-const twilioPassword = TWILIO_PASSWORD;
+const client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
-const client = require('twilio')(accountSid, authToken);
+const getAllMessages = () => {
+  client.messages.list({ limit: 20 }).then((messages) =>
+    messages.forEach((message) => {
+      console.log(message);
+    })
+  );
+};
 
-client.messages
-   .create({
-      body: "Hello Mama. This is Kanyisa. This is my second message",
-      to: '+27713975856',
-      from: '+15735273488'
-   })
-   .then((message) => console.log(message));
+const sendMessage = () => {
+  client.messages
+    .create({
+      from: TWILIO_PHONE_NUMBER,
+      body: 'Hello! This is sent from the vs code program',
+      to: MY_PHONE_NUMBER,
+    })
+    .then((response) => console.log(response));
+};
+
+const sendScheduledMessage = () => {
+  client.messages
+    .create({
+      body: 'I am sending a scheduled message from my vs code program',
+      messagingServiceSid: MESSAGE_SERVICE_SID,
+      sendAt: new Date(Date.UTC(2023, 10, 9, 20, 30, 0)),
+      scheduleType: 'fixed',
+      to: MY_PHONE_NUMBER,
+    })
+    .then((response) => console.log(response));
+};
