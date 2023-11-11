@@ -2,21 +2,18 @@
   "name": "gxojeni",
   "version": "1.0.0",
   "description": "![A smiling black woman with an orange does and yellow shirt holding a basket with crops. In the background is a farm with someone working.](./images/countryside-woman-holding-plant-leaves.jpg)\r Image by [Freepik](https://www.freepik.com/free-photo/countryside-woman-holding-plant-leaves_11290645.htm#query=black%20farmer&position=0&from_view=search&track=robertav1_2_sidr\")",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "start": "webpack --config webpack.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^1.5.0",
-    "twilio": "^4.16.0",
-    "webpack": "^5.89.0"
-  },
   "devDependencies": {
-    "dotenv": "^16.3.1",
+    "jasmine": "^5.1.0",
+    "jsdom": "^22.1.0",
+    "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"
   }
 }
