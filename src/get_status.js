@@ -2,7 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 const { ESP_TOKEN } = process.env;
 
-const baseUrl = `https://developer.sepush.co.za/business/2.0/status`;
+const baseUrl = `https://developer.sepush.co.za/business/2.0/status?test`;
 
 const getStatus = async () => {
   try {
@@ -18,7 +18,7 @@ const getStatus = async () => {
     console.log(error);
   }
 };
-getStatus().then((res) => console.log(res));
+// getStatus().then((res) => console.log(res));
 
 module.exports = { getStatus };
 
